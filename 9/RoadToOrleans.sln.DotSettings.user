@@ -7,13 +7,19 @@
     &lt;TestId&gt;xUnit::3898F37D-56BD-4D6E-914F-C428E9DB2D6B::net5.0::GrainUnitTests.UnitTest1.Test1&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ae641070_002D2ec9_002D4366_002Da4bb_002Deb2d046c3af3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SayHelloTestWithRealService" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::3898F37D-56BD-4D6E-914F-C428E9DB2D6B::net5.0::GrainUnitTests.SampleUnitTest.SayHelloTestWithRealService&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e11f11ee_002D8efa_002D49b6_002D91bb_002D74003d7a2836/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::3898F37D-56BD-4D6E-914F-C428E9DB2D6B::net5.0::GrainUnitTests.UnitTest1.Test1&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ed84e042_002D35a4_002D4244_002D9b1b_002D63611684d67e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1 #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ed84e042_002D35a4_002D4244_002D9b1b_002D63611684d67e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1 #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::3898F37D-56BD-4D6E-914F-C428E9DB2D6B::net5.0::GrainUnitTests.SampleUnitTest.SayHelloTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::3898F37D-56BD-4D6E-914F-C428E9DB2D6B::net5.0::GrainUnitTests.SampleUnitTest.SayHelloTestWithRealService&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

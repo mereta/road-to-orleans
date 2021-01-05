@@ -1,43 +1,41 @@
 using System;
-using System.Collections.ObjectModel;
-using System.Threading;
 using System.Threading.Tasks;
+using Grains;
 using Interfaces;
 using Library;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using Orleans;
-using Orleans.Hosting;
+using Orleans.Runtime;
 using Orleans.TestingHost;
+using Orleans.TestKit;
+using Orleans.TestKit.Services;
 using Xunit;
 
 namespace GrainUnitTests
 {
-    public class SampleUnitTest : IDisposable
+    public class SampleUnitTest : TestKitBase
     {
-        private readonly TestCluster _cluster;
-        public SampleUnitTest()
+        [Fact]
+        public async Task SayHelloTestWithMock()
         {
-            TestClusterBuilder builder = new TestClusterBuilder();
-            builder.AddSiloBuilderConfigurator<MySiloBuilderConfigurator>();
-
-            _cluster = builder.Build();
-            _cluster.Deploy();
-        }
-
-        public void Dispose()
-        {
-            _cluster.Dispose();
+            var expectedResponse = "Hello mike";
+            var helloService = Silo.AddServiceProbe<IHelloService>();
+            helloService.Setup(x => x.Say("mike")).Returns("Hello mike");
+            var hello =  await Silo.CreateGrainAsync<HelloWorld>(1);
+            var mockToken = new GrainCancellationTokenSource();
+            var greeting = await hello.SayHello("mike", mockToken.Token);
+            Assert.Equal(expectedResponse, greeting);
         }
 
         [Fact]
-        public async Task SayHelloTest()
-        {            
-            var hello = _cluster.GrainFactory.GetGrain<IHelloWorld>(1);
+        public async Task SayHelloTestWithRealService()
+        {
+            var expectedResponse = "Hello, mike! Your name is 4 characters long.";
+            Silo.AddService<IHelloService>(new HelloService());
+            var hello =  await Silo.CreateGrainAsync<HelloWorld>(1);
             var mockToken = new GrainCancellationTokenSource();
             var greeting = await hello.SayHello("mike", mockToken.Token);
-            Assert.Equal("Hello, mike! Your name is 4 characters long.", greeting);
+            Assert.Equal(expectedResponse, greeting);
+            
         }
     }
 }
