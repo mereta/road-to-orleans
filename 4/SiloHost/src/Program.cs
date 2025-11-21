@@ -21,24 +21,25 @@ namespace SiloHost
             var advertisedIp = Environment.GetEnvironmentVariable("ADVERTISEDIP");
             var advertisedIpAddress = advertisedIp == null ? GetLocalIpAddress() : IPAddress.Parse(advertisedIp);
 
-            var extractedGatewayPort = Environment.GetEnvironmentVariable("GATEWAYPORT")?? throw new Exception("Gateway port cannot be null");
+            var extractedGatewayPort = Environment.GetEnvironmentVariable("GATEWAYPORT") ?? throw new Exception("Gateway port cannot be null");
             var extractedSiloPort = Environment.GetEnvironmentVariable("SILOPORT")
                                     ?? throw new Exception("Silo port cannot be null");
             var extractDashboardPort = Environment.GetEnvironmentVariable("DASHBOARDPORT") ??
                                        throw new Exception("Dashboard port cannot be null");
             var extractedPrimaryPort = Environment.GetEnvironmentVariable("PRIMARYPORT") ?? throw new Exception("Primary port cannot be null");
             // For the sake of simplicity, a primary silo is used here (even though all silos are peers in the cluster) as in-memory cluster membership emulation was utilised in this example.
-            var primaryAddress = Environment.GetEnvironmentVariable("PRIMARYADDRESS") ?? throw new Exception("Primary address cannot be null");
+            // If the primary address is not provided, we're assuming all silos in the cluster are running under one IP.
+            var primaryAddress = Environment.GetEnvironmentVariable("PRIMARYADDRESS");
 
             var siloPort = int.Parse(extractedSiloPort);
             var developmentPeerPort = int.Parse(extractedPrimaryPort);
             var gatewayPort = int.Parse(extractedGatewayPort);
             var dashboardPort = int.Parse(extractDashboardPort);
-            var primaryIp = IPAddress.Parse(primaryAddress);
+            var primaryIp = primaryAddress == null ? advertisedIpAddress : IPAddress.Parse(primaryAddress);
 
             var primarySiloEndpoint = new IPEndPoint(primaryIp, developmentPeerPort);
 
-            var siloEndpointConfiguration = new SiloEndpointConfiguration(advertisedIpAddress, siloPort, gatewayPort);
+            SiloEndpointConfiguration siloEndpointConfiguration = new(advertisedIpAddress, siloPort, gatewayPort);
 
             return new HostBuilder()
                 .UseOrleans(siloBuilder =>

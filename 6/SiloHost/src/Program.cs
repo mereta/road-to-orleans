@@ -20,7 +20,7 @@ namespace SiloHost
             var advertisedIp = Environment.GetEnvironmentVariable("ADVERTISEDIP");
             var advertisedIpAddress = advertisedIp == null ? GetLocalIpAddress() : IPAddress.Parse(advertisedIp);
 
-            var extractedGatewayPort = Environment.GetEnvironmentVariable("GATEWAYPORT")?? throw new Exception("Gateway port cannot be null");
+            var extractedGatewayPort = Environment.GetEnvironmentVariable("GATEWAYPORT") ?? throw new Exception("Gateway port cannot be null");
             var extractedSiloPort = Environment.GetEnvironmentVariable("SILOPORT")
                                     ?? throw new Exception("Silo port cannot be null");
             var extractDashboardPort = Environment.GetEnvironmentVariable("DASHBOARDPORT") ??
@@ -30,14 +30,14 @@ namespace SiloHost
             var primaryAddress = Environment.GetEnvironmentVariable("PRIMARYADDRESS") ?? throw new Exception("Primary address cannot be null");
 
             var siloPort = int.Parse(extractedSiloPort);
-            var developmentPeerPort = int.Parse(extractedPrimaryPort);
+            var primarySiloPort = int.Parse(extractedPrimaryPort);
             var gatewayPort = int.Parse(extractedGatewayPort);
             var dashboardPort = int.Parse(extractDashboardPort);
             var primaryIp = IPAddress.Parse(primaryAddress);
 
-            var primarySiloEndpoint = new IPEndPoint(primaryIp, developmentPeerPort);
+            var primarySiloEndpoint = new IPEndPoint(primaryIp, primarySiloPort);
 
-            var siloEndpointConfiguration = new SiloEndpointConfiguration(advertisedIpAddress, siloPort, gatewayPort);
+            SiloEndpointConfiguration siloEndpointConfiguration = new(advertisedIpAddress, siloPort, gatewayPort);
 
             return new HostBuilder()
                 .UseOrleans(siloBuilder =>

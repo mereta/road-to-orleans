@@ -8,5 +8,9 @@ riderModule.iml
 metrics.json
 plot.html
 results.bin
-.vscode/
 **/.vs
+RoadToOrleans.sln.DotSettings.user
+*.env
+*/UnitTests/SampleTestRun.xml
+.fake
+.ionide
